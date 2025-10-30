@@ -1,0 +1,6 @@
+body { margin: 0; }
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 4px 8px; border-bottom: 1px solid #222; font-size: 14px; }
+th { text-align: left; background: #1d222b; }
+tr:hover { background: #1a1f27; }
+button { cursor: pointer; }

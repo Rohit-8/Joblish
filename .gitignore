@@ -1,0 +1,69 @@
+# Root gitignore for Joblish
+
+# Node dependencies
+node_modules/
+
+# Builds / output
+/dist/
+/.next/
+.next/
+/out/
+/build/
+server/dist/
+client/.next/
+client/out/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Env files
+.env
+.env.*
+!.env.example
+server/.env
+server/.env.local
+client/.env.local
+
+# Coverage / tests
+coverage/
+*.lcov
+
+# Cache
+.cache/
+.next/cache/
+.eslintcache
+
+# Misc
+*.swp
+*.swo
+*.orig
+*.pid
+
+# Redis / data dumps
+*.rdb
+
+# Mongo dumps
+/dump/
+
+# Lock backup
+package-lock.backup.json
+
+# Temporary
+/tmp/
+.temp/
