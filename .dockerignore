@@ -1,0 +1,13 @@
+node_modules
+dist
+.next
+out
+logs
+*.log
+coverage
+*.tsbuildinfo
+tmp
+**/.env
+**/.env.local
+Dockerfile*
+docker-compose.yml

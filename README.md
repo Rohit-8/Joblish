@@ -105,3 +105,30 @@ See `docs/architecture.md` for deeper design & scaling notes.
 
 MIT (add appropriate LICENSE file if required).
 
+## Using Existing Podman Containers
+
+If you already launched Mongo & Redis via Podman (e.g.):
+
+```powershell
+podman run -d --name mongo --network mongo-net -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=pass mongo:latest
+podman run -d --name redis -p 6379:6379 redis:latest
+podman run -d --name mongo-express --network mongo-net -p 8081:8081 -e ME_CONFIG_MONGODB_URL="mongodb://root:pass@mongo:27017/" -e ME_CONFIG_BASICAUTH_USERNAME=admin -e ME_CONFIG_BASICAUTH_PASSWORD=adminpass mongo-express:latest
+```
+
+Then set in `server/.env`:
+```env
+MONGO_URI=mongodb://root:pass@localhost:27017/joblish?authSource=admin
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
+
+Run server & client normally. `mongo-express` will be reachable at http://localhost:8081 for UI inspection.
+
+Inside Docker Compose containers (if you use compose for app only) you may need:
+```env
+MONGO_URI=mongodb://root:pass@host.docker.internal:27017/joblish?authSource=admin
+REDIS_HOST=host.docker.internal
+```
+For Podman, if `host.docker.internal` does not resolve, use `host.containers.internal`.
+
+

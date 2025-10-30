@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  server:
+    build: ./server
+    container_name: joblish-server
+    environment:
+      PORT: 4000
+      MONGO_URI: mongodb://mongo:27017/joblish
+      REDIS_HOST: host.docker.internal
+      REDIS_PORT: 6379
+      QUEUE_CONCURRENCY: 5
+      IMPORT_BATCH_SIZE: 50
+      ENABLE_SSE: "true"
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"
+  client:
+    build: ./client
+    container_name: joblish-client
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+  mongo:
+    image: mongo:7
+    container_name: joblish-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+volumes:
+  mongo_data:

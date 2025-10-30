@@ -4,7 +4,9 @@ import { config } from '../config.js';
 
 export const redisConnection = new IORedis({
   host: config.redis.host,
-  port: config.redis.port
+  port: config.redis.port,
+  maxRetriesPerRequest: null,
+  enableReadyCheck: false
 });
 
 export const queues = {

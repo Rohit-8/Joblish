@@ -71,7 +71,24 @@ export async function runImport(feeds: string[] = FEED_URLS) {
   return runId;
 }
 
+function sanitizeId(id: string) {
+  // Remove characters potentially problematic for BullMQ (e.g., colon used internally for redis key namespaces)
+  const cleaned = id.replace(/[:\s\n\r\t]/g, '_').slice(0, 160);
+  return cleaned.length === 0 ? `job_${Date.now()}` : cleaned;
+}
+
 async function enqueueBatch(runId: string, batch: RawJobItem[], sourceUrl: string) {
-  await Promise.all(batch.map(job => queues.jobImport.add('import', { runId, sourceUrl, job }, { jobId: `${job.externalId}` })));
-  await ImportLog.updateOne({ runId }, { $inc: { totalImported: batch.length } });
+  let success = 0;
+  for (const job of batch) {
+    try {
+      const jobId = sanitizeId(job.externalId);
+      await queues.jobImport.add('import', { runId, sourceUrl, job }, { jobId });
+      success++;
+    } catch (err: any) {
+      await ImportLog.updateOne({ runId }, { $inc: { failedJobs: 1 }, $push: { failures: { externalId: job.externalId, reason: `enqueue: ${err.message}` } } });
+    }
+  }
+  if (success) {
+    await ImportLog.updateOne({ runId }, { $inc: { totalImported: success } });
+  }
 }
