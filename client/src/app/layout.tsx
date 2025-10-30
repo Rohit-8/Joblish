@@ -1,12 +1,21 @@
 import React from 'react';
 import './globals.css';
+import Link from 'next/link';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ fontFamily: 'system-ui, Arial, sans-serif', margin: 0, padding: 20, background: '#0f1115', color: '#f5f7fa' }}>
-        <h1 style={{ marginTop: 0 }}>Joblish Admin</h1>
-        {children}
+      <body className="app-root">
+        <header className="topbar">
+          <div className="brand">Joblish Admin</div>
+          <nav className="nav">
+            <Link href="/" className="nav-link">Dashboard</Link>
+            <Link href="/jobs" className="nav-link">Jobs</Link>
+          </nav>
+        </header>
+        <main className="main-container">
+          {children}
+        </main>
       </body>
     </html>
   );

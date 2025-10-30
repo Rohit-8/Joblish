@@ -47,6 +47,9 @@ export default function Home() {
         <button onClick={triggerImport} style={{ background: '#2563eb', color: 'white', border: 'none', padding: '8px 14px', borderRadius: 4 }}>Run Import</button>
         {isLoading && <span>Loading...</span>}
       </div>
+      <div style={{ marginTop: 8, marginBottom: 12 }}>
+        <a href="/jobs" style={{ color:'#60a5fa' }}>View Jobs &raquo;</a>
+      </div>
       <h2>Recent Import Runs</h2>
       <table>
         <thead>
