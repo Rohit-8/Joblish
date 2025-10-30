@@ -8,11 +8,13 @@ body { margin: 0; }
 .nav-link:hover { background:#1e2530; color:#e2e8f0; }
 .main-container { max-width:1200px; margin:0 auto; padding:28px 24px 60px; }
 h1,h2,h3 { font-weight:600; letter-spacing:.4px; }
-table { border-collapse: collapse; width: 100%; background:#11161d; border:1px solid #1d2732; border-radius:6px; overflow:hidden; }
-th, td { padding: 6px 10px; font-size: 13px; border-bottom: 1px solid #1d2732; }
-th { text-align: left; background: #1c2530; font-weight:500; color:#cbd5e1; position:sticky; top:0; }
+table { border-collapse: collapse; width: 100%; background:#10151d; border:1px solid #243140; border-radius:6px; overflow:hidden; }
+th, td { padding: 7px 11px; font-size: 13px; border-bottom: 1px solid #1f2b38; }
+th { text-align: left; background: linear-gradient(180deg,#1e2733,#17202b); font-weight:600; color:#e2e8f0; position:sticky; top:0; letter-spacing:.3px; }
+tbody tr { background:#131b24; }
+tbody tr:nth-child(even) { background:#18222d; }
+tbody tr:hover td { background:#1f2a36; }
 tr:last-child td { border-bottom:none; }
-tr:hover td { background:#18202a; }
 button { cursor: pointer; font-size:13px; font-weight:500; border-radius:4px; }
 .btn { background:#2563eb; color:#fff; border:1px solid #1d4ed8; padding:8px 14px; display:inline-flex; align-items:center; gap:6px; }
 .btn:disabled { opacity:.5; cursor:not-allowed; }
@@ -28,6 +30,8 @@ button { cursor: pointer; font-size:13px; font-weight:500; border-radius:4px; }
 .meta-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; margin:12px 0 4px; }
 .meta-item { background:#1b222c; padding:8px 10px; border:1px solid #25313d; border-radius:4px; font-size:12px; }
 .scroll-box { background:#0e1319; border:1px solid #1d2732; padding:14px; border-radius:6px; max-height:420px; overflow:auto; font-size:13px; line-height:1.4; }
-.link { color:#60a5fa; text-decoration:none; }
+.link { color:#4ea5ff; text-decoration:none; }
 .link:hover { text-decoration:underline; }
+tbody a { color:#6db7ff; }
+tbody a:hover { color:#95ccff; }
 
