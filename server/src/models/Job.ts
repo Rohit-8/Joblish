@@ -10,6 +10,8 @@ const JobSchema = new Schema({
   categories: [{ type: String }],
   employmentType: { type: String },
   publishDate: { type: Date },
+  link: { type: String },
+  imageUrl: { type: String },
   raw: { type: Schema.Types.Mixed },
 }, { timestamps: true });
 

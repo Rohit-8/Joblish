@@ -20,20 +20,24 @@ export const FEED_URLS: string[] = [
 ];
 
 function mapItem(sourceUrl: string, item: any): RawJobItem | null {
-  const guid = item.guid?.[0]?._ || item.guid?.[0] || item.link?.[0];
+  const guid = item.guid?.[0]?._ || item.guid?.[0] || item.link?.[0] || item.id?.[0];
   if (!guid) return null;
   const title = (item.title?.[0] || '').toString();
   const description = (item.description?.[0] || item['content:encoded']?.[0] || '').toString();
+  const mediaContent = item['media:content']?.[0];
+  const imageUrl = Array.isArray(mediaContent?.url) ? mediaContent.url[0] : (mediaContent?.url || undefined);
   return {
     externalId: guid,
     title,
     description,
-    company: item['dc:creator']?.[0] || item.creator?.[0],
-    location: item.location?.[0] || item['job:location']?.[0],
+    company: item['job_listing:company']?.[0] || item['dc:creator']?.[0] || item.creator?.[0],
+    location: item['job_listing:location']?.[0] || item.location?.[0] || item['job:location']?.[0],
     categories: (item.category || []).map((c: any) => c._ || c).filter(Boolean),
-    employmentType: item['job:job_type']?.[0],
+    employmentType: item['job_listing:job_type']?.[0] || item['job:job_type']?.[0],
     publishDate: item.pubDate ? new Date(item.pubDate[0]) : undefined,
     sourceUrl,
+    link: item.link?.[0],
+    imageUrl,
     raw: item
   };
 }

@@ -10,6 +10,8 @@ async function fetchJob(id: string) {
 
 export default async function JobDetail({ params }: { params: { id: string } }) {
   const job = await fetchJob(params.id);
+  console.log(job);
+  console.log(job.raw?.['job_listing:company']);
   if (!job) return <div className="panel"><h2>Not Found</h2></div>;
   return (
     <div>
@@ -21,6 +23,15 @@ export default async function JobDetail({ params }: { params: { id: string } }) 
           <div className="meta-item"><strong>Updated</strong><br/>{job.updatedAt ? new Date(job.updatedAt).toLocaleString() : '—'}</div>
           <div className="meta-item"><strong>Source</strong><br/><a href={job.sourceUrl} className="link" target="_blank" rel="noopener noreferrer">feed</a></div>
           <div className="meta-item"><strong>Categories</strong><br/>{(job.categories || []).join(', ') || '—'}</div>
+          <div className="meta-item"><strong>Company</strong><br/>{job.raw?.['job_listing:company']?.[0] || '—'}</div>
+          <div className="meta-item"><strong>Type</strong><br/>{job.raw?.['job_listing:job_type']?.[0] || '—'}</div>
+          <div className="meta-item"><strong>Location</strong><br/>{job.raw?.['job_listing:location']?.[0] || '—'}</div>
+          {job.imageUrl && (
+            <div className="meta-item" style={{ textAlign:'center' }}>
+              <strong>Image</strong><br/>
+              <img src={job.imageUrl} alt={job.title || 'job image'} style={{ maxWidth:'100%', maxHeight:80, objectFit:'cover', borderRadius:4, marginTop:4 }} />
+            </div>
+          )}
         </div>
       </div>
       <div className="panel">

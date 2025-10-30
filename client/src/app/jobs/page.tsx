@@ -11,6 +11,10 @@ interface JobListItem {
   sourceUrl: string;
   publishDate?: string;
   updatedAt?: string;
+  company?: string;
+  employmentType?: string;
+  location?: string;
+  imageUrl?: string;
 }
 
 interface JobsResponse {
@@ -80,17 +84,25 @@ export default function JobsPage() {
       <table>
         <thead>
           <tr>
-            <th>Title</th>
+            <th style={{ minWidth: '220px' }}>Title</th>
+            <th>Company</th>
+            <th>Type</th>
+            <th>Location</th>
             <th>Source</th>
+            <th>External</th>
             <th>Published</th>
             <th>Updated</th>
           </tr>
         </thead>
         <tbody>
-          {filtered.map(j => (
+          {filtered.map((j: JobListItem) => (
             <tr key={j._id}>
               <td><Link href={`/jobs/${j._id}`}>{j.title || j.externalId.slice(0,60)}</Link></td>
+              <td>{j.company || '—'}</td>
+              <td>{j.employmentType || '—'}</td>
+              <td>{j.location || '—'}</td>
               <td><a href={j.sourceUrl} target="_blank" rel="noopener noreferrer">feed</a></td>
+              <td>{(j as any).link ? <a href={(j as any).link} target="_blank" rel="noopener noreferrer">open</a> : '—'}</td>
               <td>{j.publishDate ? new Date(j.publishDate).toLocaleDateString() : ''}</td>
               <td>{j.updatedAt ? new Date(j.updatedAt).toLocaleString() : ''}</td>
             </tr>

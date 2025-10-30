@@ -8,6 +8,8 @@ export interface RawJobItem {
   employmentType?: string;
   publishDate?: Date;
   sourceUrl: string;
+  link?: string;
+  imageUrl?: string;
   raw: any;
 }
 
