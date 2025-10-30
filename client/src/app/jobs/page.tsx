@@ -6,6 +6,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api'
 
 interface JobListItem {
   _id: string;
+  raw: any;
   title?: string;
   externalId: string;
   sourceUrl: string;
@@ -98,11 +99,11 @@ export default function JobsPage() {
           {filtered.map((j: JobListItem) => (
             <tr key={j._id}>
               <td><Link href={`/jobs/${j._id}`}>{j.title || j.externalId.slice(0,60)}</Link></td>
-              <td>{j.company || '—'}</td>
-              <td>{j.employmentType || '—'}</td>
-              <td>{j.location || '—'}</td>
+              <td>{j.raw?.['job_listing:company']?.[0] || '—'}</td>
+              <td>{j.raw?.['job_listing:job_type']?.[0] || '—'}</td>
+              <td>{j.raw?.['job_listing:location']?.[0] || '—'}</td>
               <td><a href={j.sourceUrl} target="_blank" rel="noopener noreferrer">feed</a></td>
-              <td>{(j as any).link ? <a href={(j as any).link} target="_blank" rel="noopener noreferrer">open</a> : '—'}</td>
+              <td>{(j as any).externalId ? <a href={(j as any).externalId} target="_blank" rel="noopener noreferrer">open</a> : '—'}</td>
               <td>{j.publishDate ? new Date(j.publishDate).toLocaleDateString() : ''}</td>
               <td>{j.updatedAt ? new Date(j.updatedAt).toLocaleString() : ''}</td>
             </tr>

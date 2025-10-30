@@ -10,8 +10,8 @@ async function fetchJob(id: string) {
 
 export default async function JobDetail({ params }: { params: { id: string } }) {
   const job = await fetchJob(params.id);
-  console.log(job);
-  console.log(job.raw?.['job_listing:company']);
+//   console.log(job);
+//   console.log(job.raw?.['job_listing:company']);
   if (!job) return <div className="panel"><h2>Not Found</h2></div>;
   return (
     <div>
